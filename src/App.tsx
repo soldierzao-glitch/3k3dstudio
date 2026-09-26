@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { PageView, ProjectCategory } from './types';
-import { Header } from './components/Header';
+import { Header, NavItem } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { CategoriesSection } from './components/CategoriesSection';
 import { ProcessSection } from './components/ProcessSection';
@@ -11,9 +11,18 @@ import { Footer } from './components/Footer';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageView>('inicio');
+  const [activeNav, setActiveNav] = useState<NavItem>('inicio');
   const [selectedGalleryCategory, setSelectedGalleryCategory] = useState<ProjectCategory>('all');
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const [quoteTargetProject, setQuoteTargetProject] = useState<string | undefined>(undefined);
+
+  const scrollToSection = (sectionId: string) => {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      const targetY = el.getBoundingClientRect().top + window.scrollY - 85;
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    }
+  };
 
   // Handle page navigation
   const handleNavigate = (page: PageView) => {
@@ -26,40 +35,52 @@ export default function App() {
       if (currentPage !== 'inicio') {
         setCurrentPage('inicio');
         setTimeout(() => {
-          document.getElementById('atendimento-engenheiro-section')?.scrollIntoView({ behavior: 'smooth' });
+          scrollToSection('atendimento-engenheiro-section');
         }, 120);
       } else {
-        document.getElementById('atendimento-engenheiro-section')?.scrollIntoView({ behavior: 'smooth' });
+        scrollToSection('atendimento-engenheiro-section');
       }
       return;
     }
 
+    if (page === 'inicio') {
+      setActiveNav('inicio');
+      if (currentPage !== 'inicio') {
+        setCurrentPage('inicio');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     if (page === 'galeria') {
+      setActiveNav('galeria');
       setCurrentPage('galeria-de-encomendas-reais');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
     if (page === 'como-funciona') {
+      setActiveNav('como-funciona');
       if (currentPage !== 'inicio') {
         setCurrentPage('inicio');
         setTimeout(() => {
-          document.getElementById('como-funciona-section')?.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
+          scrollToSection('como-funciona-section');
+        }, 120);
       } else {
-        document.getElementById('como-funciona-section')?.scrollIntoView({ behavior: 'smooth' });
+        scrollToSection('como-funciona-section');
       }
       return;
     }
 
     if (page === 'categorias') {
+      setActiveNav('categorias');
       if (currentPage !== 'inicio') {
         setCurrentPage('inicio');
         setTimeout(() => {
-          document.getElementById('categorias-section')?.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
+          scrollToSection('categorias-section');
+        }, 120);
       } else {
-        document.getElementById('categorias-section')?.scrollIntoView({ behavior: 'smooth' });
+        scrollToSection('categorias-section');
       }
       return;
     }
@@ -75,9 +96,47 @@ export default function App() {
 
   const handleSelectCategoryFromHome = (category: ProjectCategory) => {
     setSelectedGalleryCategory(category);
+    setActiveNav('galeria');
     setCurrentPage('galeria-de-encomendas-reais');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Scroll spy para manter o item do menu ativo conforme a rolagem
+  useEffect(() => {
+    if (currentPage === 'galeria-de-encomendas-reais') {
+      setActiveNav('galeria');
+      return;
+    }
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const comoFuncionaEl = document.getElementById('como-funciona-section');
+      const categoriasEl = document.getElementById('categorias-section');
+
+      if (comoFuncionaEl) {
+        const rect = comoFuncionaEl.getBoundingClientRect();
+        if (rect.top <= 220 && rect.bottom >= 150) {
+          setActiveNav('como-funciona');
+          return;
+        }
+      }
+
+      if (categoriasEl) {
+        const rect = categoriasEl.getBoundingClientRect();
+        if (rect.top <= 220 && rect.bottom >= 150) {
+          setActiveNav('categorias');
+          return;
+        }
+      }
+
+      if (scrollY < 400) {
+        setActiveNav('inicio');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [currentPage]);
 
   useEffect(() => {
     // Sync title based on active view
@@ -94,6 +153,7 @@ export default function App() {
       {/* Fixed Sticky Header */}
       <Header
         currentPage={currentPage}
+        activeNav={activeNav}
         onNavigate={handleNavigate}
         onOpenInstantQuote={() => handleOpenInstantQuote()}
       />

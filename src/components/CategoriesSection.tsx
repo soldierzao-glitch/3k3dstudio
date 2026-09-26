@@ -53,7 +53,11 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({
         
         {/* Section Header */}
         <div className="flex flex-col items-start gap-2 mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00f2fe]/10 border border-[#00f2fe]/30 text-[#00dce6] font-['JetBrains_Mono'] text-xs font-semibold uppercase">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00f2fe]/10 border border-[#00f2fe]/30 text-[#00dce6] font-['JetBrains_Mono'] text-xs font-semibold uppercase shadow-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00f2fe] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00f2fe]"></span>
+            </span>
             <span>tudo sob medida</span>
           </div>
           <h2 className="font-['Space_Grotesk'] text-3xl sm:text-4xl md:text-5xl text-[#e0e2ef] tracking-tight font-bold">

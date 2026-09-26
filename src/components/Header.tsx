@@ -1,14 +1,18 @@
 import React from 'react';
 import { PageView } from '../types';
 
+export type NavItem = 'inicio' | 'como-funciona' | 'categorias' | 'galeria';
+
 interface HeaderProps {
   currentPage: PageView;
+  activeNav?: NavItem;
   onNavigate: (page: PageView) => void;
   onOpenInstantQuote: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   currentPage,
+  activeNav,
   onNavigate
 }) => {
   const handleNavClick = (page: PageView, e: React.MouseEvent) => {
@@ -16,7 +20,16 @@ export const Header: React.FC<HeaderProps> = ({
     onNavigate(page);
   };
 
-  const isGaleriaActive = currentPage === 'galeria' || currentPage === 'galeria-de-encomendas-reais';
+  // Determinar qual item do menu está ativo
+  const currentActive: NavItem = activeNav || (
+    currentPage === 'galeria' || currentPage === 'galeria-de-encomendas-reais'
+      ? 'galeria'
+      : currentPage === 'como-funciona'
+      ? 'como-funciona'
+      : currentPage === 'categorias'
+      ? 'categorias'
+      : 'inicio'
+  );
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-[#10131c]/95 backdrop-blur-2xl border-b border-[#272a34]/70 shadow-[0_1px_12px_rgba(0,0,0,0.5)]">
@@ -62,10 +75,10 @@ export const Header: React.FC<HeaderProps> = ({
         <nav className="flex items-center justify-center gap-1 sm:gap-2 py-1 px-1.5 sm:px-2 rounded-xl bg-[#0b0e17]/80 border border-[#272a34]/80 backdrop-blur-md w-full md:w-auto">
           <button
             onClick={(e) => handleNavClick('inicio', e)}
-            className={`px-2.5 sm:px-3.5 py-1.5 sm:py-2 font-['Plus_Jakarta_Sans'] text-xs sm:text-sm tracking-wide transition-all rounded-lg shrink-0 ${
-              currentPage === 'inicio'
-                ? 'bg-[#272a34] text-[#00f2fe] font-bold shadow-[0_0_12px_rgba(0,242,254,0.18)]'
-                : 'text-[#b9cacb] hover:text-[#e0e2ef] hover:bg-[#272a34]/50'
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 font-['Plus_Jakarta_Sans'] text-xs sm:text-sm tracking-wide transition-all rounded-lg shrink-0 border ${
+              currentActive === 'inicio'
+                ? 'bg-[#272a34] text-[#00f2fe] font-bold shadow-[0_0_14px_rgba(0,242,254,0.22)] border-[#00f2fe]/45 ring-1 ring-[#00f2fe]/20'
+                : 'text-[#b9cacb] hover:text-[#e0e2ef] hover:bg-[#272a34]/50 border-transparent'
             }`}
           >
             Início
@@ -73,10 +86,10 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={(e) => handleNavClick('como-funciona', e)}
-            className={`px-2.5 sm:px-3.5 py-1.5 sm:py-2 font-['Plus_Jakarta_Sans'] text-xs sm:text-sm tracking-wide transition-all rounded-lg shrink-0 ${
-              currentPage === 'como-funciona'
-                ? 'bg-[#272a34] text-[#00f2fe] font-bold shadow-[0_0_12px_rgba(0,242,254,0.18)]'
-                : 'text-[#b9cacb] hover:text-[#e0e2ef] hover:bg-[#272a34]/50'
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 font-['Plus_Jakarta_Sans'] text-xs sm:text-sm tracking-wide transition-all rounded-lg shrink-0 border ${
+              currentActive === 'como-funciona'
+                ? 'bg-[#272a34] text-[#00f2fe] font-bold shadow-[0_0_14px_rgba(0,242,254,0.22)] border-[#00f2fe]/45 ring-1 ring-[#00f2fe]/20'
+                : 'text-[#b9cacb] hover:text-[#e0e2ef] hover:bg-[#272a34]/50 border-transparent'
             }`}
           >
             Como Funciona
@@ -84,10 +97,10 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={(e) => handleNavClick('categorias', e)}
-            className={`px-2.5 sm:px-3.5 py-1.5 sm:py-2 font-['Plus_Jakarta_Sans'] text-xs sm:text-sm tracking-wide transition-all rounded-lg shrink-0 ${
-              currentPage === 'categorias'
-                ? 'bg-[#272a34] text-[#00f2fe] font-bold shadow-[0_0_12px_rgba(0,242,254,0.18)]'
-                : 'text-[#b9cacb] hover:text-[#e0e2ef] hover:bg-[#272a34]/50'
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 font-['Plus_Jakarta_Sans'] text-xs sm:text-sm tracking-wide transition-all rounded-lg shrink-0 border ${
+              currentActive === 'categorias'
+                ? 'bg-[#272a34] text-[#00f2fe] font-bold shadow-[0_0_14px_rgba(0,242,254,0.22)] border-[#00f2fe]/45 ring-1 ring-[#00f2fe]/20'
+                : 'text-[#b9cacb] hover:text-[#e0e2ef] hover:bg-[#272a34]/50 border-transparent'
             }`}
           >
             Categorias
@@ -95,14 +108,13 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={(e) => handleNavClick('galeria', e)}
-            className={`px-2.5 sm:px-3.5 py-1.5 sm:py-2 font-['Plus_Jakarta_Sans'] text-xs sm:text-sm tracking-wide transition-all rounded-lg shrink-0 relative flex items-center gap-1.5 ${
-              isGaleriaActive
-                ? 'bg-[#272a34] text-[#00f2fe] font-bold shadow-[0_0_12px_rgba(0,242,254,0.22)]'
-                : 'text-[#b9cacb] hover:text-[#e0e2ef] hover:bg-[#272a34]/50'
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 font-['Plus_Jakarta_Sans'] text-xs sm:text-sm tracking-wide transition-all rounded-lg shrink-0 border ${
+              currentActive === 'galeria'
+                ? 'bg-[#272a34] text-[#00f2fe] font-bold shadow-[0_0_14px_rgba(0,242,254,0.22)] border-[#00f2fe]/45 ring-1 ring-[#00f2fe]/20'
+                : 'text-[#b9cacb] hover:text-[#e0e2ef] hover:bg-[#272a34]/50 border-transparent'
             }`}
           >
-            <span>Galeria</span>
-            <span className="w-2 h-2 rounded-full bg-[#00f2fe] shadow-[0_0_8px_#00f2fe] animate-pulse"></span>
+            Galeria
           </button>
         </nav>
 
