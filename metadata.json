@@ -1,0 +1,6 @@
+{
+  "name": "3K 3D Studio - Manufatura Aditiva & Prototipagem",
+  "description": "Estúdio de manufatura aditiva industrial, impressão 3D de alta precisão em resina 8K e filamentos técnicos FDM para colecionáveis, decoração e engenharia.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
