@@ -1,47 +1,282 @@
 {
-  "equipe_criativa_3k": {
-    "fileName": "equipe_criativa_3k.jpg",
-    "url": "/images/equipe_criativa_3k.jpg",
-    "mediaType": "image"
-  },
   "sacro-cruz-painosso": {
-    "fileName": "sacro-cruz-painosso.jpg",
-    "url": "/images/sacro-cruz-painosso.jpg",
-    "mediaType": "image"
+    "projectId": "sacro-cruz-painosso",
+    "title": "Cruz Pai Nosso com Oração em Relevo Vazado",
+    "fileName": "Cruz Pai Nosso com Oração em Relevo Vazado.jpeg",
+    "url": "/images/Cruz%20Pai%20Nosso%20com%20Ora%C3%A7%C3%A3o%20em%20Relevo%20Vazado.jpeg",
+    "rawUrl": "/images/Cruz Pai Nosso com Oração em Relevo Vazado.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.43.19.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756935
+  },
+  "sacro-nossa-senhora-porta-terco": {
+    "projectId": "sacro-nossa-senhora-porta-terco",
+    "title": "Nossa Senhora Porta-Terço & Joias (Trio Acetinado)",
+    "fileName": "Nossa Senhora Porta-Terço & Joias (Trio Acetinado).jpeg",
+    "url": "/images/Nossa%20Senhora%20Porta-Ter%C3%A7o%20%26%20Joias%20(Trio%20Acetinado).jpeg",
+    "rawUrl": "/images/Nossa Senhora Porta-Terço & Joias (Trio Acetinado).jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.43.27.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756937
+  },
+  "sacro-conjunto-altar-cruz-maria": {
+    "projectId": "sacro-conjunto-altar-cruz-maria",
+    "title": "Conjunto Sacro: Cruz Pai Nosso & Nossa Senhora Auréola Dourada",
+    "fileName": "Conjunto Sacro- Cruz Pai Nosso & Nossa Senhora Auréola Dourada.jpeg",
+    "url": "/images/Conjunto%20Sacro-%20Cruz%20Pai%20Nosso%20%26%20Nossa%20Senhora%20Aur%C3%A9ola%20Dourada.jpeg",
+    "rawUrl": "/images/Conjunto Sacro- Cruz Pai Nosso & Nossa Senhora Auréola Dourada.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.43.28.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756938
+  },
+  "sacro-bandeja-ore-confie": {
+    "projectId": "sacro-bandeja-ore-confie",
+    "title": "Bandeja Canelada \"Ore e Confie\" com Vela & Terço",
+    "fileName": "Bandeja Canelada -Ore e Confie- com Vela & Terço.jpeg",
+    "url": "/images/Bandeja%20Canelada%20-Ore%20e%20Confie-%20com%20Vela%20%26%20Ter%C3%A7o.jpeg",
+    "rawUrl": "/images/Bandeja Canelada -Ore e Confie- com Vela & Terço.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.15__2_.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756940
+  },
+  "sacro-lembrancinhas-batizado-aureola": {
+    "projectId": "sacro-lembrancinhas-batizado-aureola",
+    "title": "Lote de Lembrancinhas Sacras com Auréola Dourada Silk",
+    "fileName": "Lote de Lembrancinhas Sacras com Auréola Dourada Silk.jpeg",
+    "url": "/images/Lote%20de%20Lembrancinhas%20Sacras%20com%20Aur%C3%A9ola%20Dourada%20Silk.jpeg",
+    "rawUrl": "/images/Lote de Lembrancinhas Sacras com Auréola Dourada Silk.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.16.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756942
+  },
+  "geek-dragoes-colecionaveis": {
+    "projectId": "geek-dragoes-colecionaveis",
+    "title": "Dupla de Dragões Banguela & Fúria da Luz Colecionáveis",
+    "fileName": "Dupla de Dragões Banguela & Fúria da Luz Colecionáveis.jpeg",
+    "url": "/images/Dupla%20de%20Drag%C3%B5es%20Banguela%20%26%20F%C3%BAria%20da%20Luz%20Colecion%C3%A1veis.jpeg",
+    "rawUrl": "/images/Dupla de Dragões Banguela & Fúria da Luz Colecionáveis.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.43.29__1_.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756944
+  },
+  "geek-suporte-celular-dragoes": {
+    "projectId": "geek-suporte-celular-dragoes",
+    "title": "Suporte de Celular Dupla de Dragões (Banguela & Fúria)",
+    "fileName": "Suporte de Celular Dupla de Dragões (Banguela & Fúria).jpeg",
+    "url": "/images/Suporte%20de%20Celular%20Dupla%20de%20Drag%C3%B5es%20(Banguela%20%26%20F%C3%BAria).jpeg",
+    "rawUrl": "/images/Suporte de Celular Dupla de Dragões (Banguela & Fúria).jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.43.29.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756946
+  },
+  "geek-trono-de-ferro-smartphone": {
+    "projectId": "geek-trono-de-ferro-smartphone",
+    "title": "Suporte de Smartphone Trono de Ferro (Game of Thrones)",
+    "fileName": "Suporte de Smartphone Trono de Ferro (Game of Thrones).jpeg",
+    "url": "/images/Suporte%20de%20Smartphone%20Trono%20de%20Ferro%20(Game%20of%20Thrones).jpeg",
+    "rawUrl": "/images/Suporte de Smartphone Trono de Ferro (Game of Thrones).jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.43.39.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756948
+  },
+  "geek-canecas-monster-kit": {
+    "projectId": "geek-canecas-monster-kit",
+    "title": "Canecas Suporte Monster Energy com Garras de Dragão (Kit 5 Cores)",
+    "fileName": "Canecas Suporte Monster Energy com Garras de Dragão (Kit 5 Cores).jpeg",
+    "url": "/images/Canecas%20Suporte%20Monster%20Energy%20com%20Garras%20de%20Drag%C3%A3o%20(Kit%205%20Cores).jpeg",
+    "rawUrl": "/images/Canecas Suporte Monster Energy com Garras de Dragão (Kit 5 Cores).jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.19__1_.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756950
+  },
+  "geek-caneca-monster-vermelha": {
+    "projectId": "geek-caneca-monster-vermelha",
+    "title": "Caneca Monster Dragon Claw Carmesim com Chaveiro",
+    "fileName": "Caneca Monster Dragon Claw Carmesim com Chaveiro.jpeg",
+    "url": "/images/Caneca%20Monster%20Dragon%20Claw%20Carmesim%20com%20Chaveiro.jpeg",
+    "rawUrl": "/images/Caneca Monster Dragon Claw Carmesim com Chaveiro.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.20__1_.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756952
+  },
+  "geek-caneca-monster-roxa": {
+    "projectId": "geek-caneca-monster-roxa",
+    "title": "Caneca Monster Garra Sombra Roxa / Ultra Violet",
+    "fileName": "Caneca Monster Garra Sombra Roxa - Ultra Violet.jpeg",
+    "url": "/images/Caneca%20Monster%20Garra%20Sombra%20Roxa%20-%20Ultra%20Violet.jpeg",
+    "rawUrl": "/images/Caneca Monster Garra Sombra Roxa - Ultra Violet.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.19.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756957
+  },
+  "geek-caneca-monster-preta-lemon": {
+    "projectId": "geek-caneca-monster-preta-lemon",
+    "title": "Caneca Monster Black Claw com Detalhes Neon Verde",
+    "fileName": "Caneca Monster Black Claw com Detalhes Neon Verde.jpeg",
+    "url": "/images/Caneca%20Monster%20Black%20Claw%20com%20Detalhes%20Neon%20Verde.jpeg",
+    "rawUrl": "/images/Caneca Monster Black Claw com Detalhes Neon Verde.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.20.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756959
+  },
+  "decor-organizador-fadinhas": {
+    "projectId": "decor-organizador-fadinhas",
+    "title": "Organizador de Mesa Fadinhas Encantadas com Folhagens",
+    "fileName": "Organizador de Mesa Fadinhas Encantadas com Folhagens.jpeg",
+    "url": "/images/Organizador%20de%20Mesa%20Fadinhas%20Encantadas%20com%20Folhagens.jpeg",
+    "rawUrl": "/images/Organizador de Mesa Fadinhas Encantadas com Folhagens.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.15__1_.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756961
+  },
+  "decor-porta-pinceis-ninfas": {
+    "projectId": "decor-porta-pinceis-ninfas",
+    "title": "Porta-Pincéis de Maquiagem Pétalas & Ninfas Aladas",
+    "fileName": "Porta-Pincéis de Maquiagem Pétalas & Ninfas Aladas.jpeg",
+    "url": "/images/Porta-Pinc%C3%A9is%20de%20Maquiagem%20P%C3%A9talas%20%26%20Ninfas%20Aladas.jpeg",
+    "rawUrl": "/images/Porta-Pincéis de Maquiagem Pétalas & Ninfas Aladas.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.15.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756963
+  },
+  "decor-porta-controles-laco": {
+    "projectId": "decor-porta-controles-laco",
+    "title": "Organizador de Controles Remotos Candy com Laço Frontal",
+    "fileName": "Organizador de Controles Remotos Candy com Laço Frontal.jpeg",
+    "url": "/images/Organizador%20de%20Controles%20Remotos%20Candy%20com%20La%C3%A7o%20Frontal.jpeg",
+    "rawUrl": "/images/Organizador de Controles Remotos Candy com Laço Frontal.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.16__1_.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756964
+  },
+  "decor-soldadinhos-quebra-nozes": {
+    "projectId": "decor-soldadinhos-quebra-nozes",
+    "title": "Soldadinhos Quebra-Nozes Minimalistas Geométricos",
+    "fileName": "Soldadinhos Quebra-Nozes Minimalistas Geométricos.jpeg",
+    "url": "/images/Soldadinhos%20Quebra-Nozes%20Minimalistas%20Geom%C3%A9tricos.jpeg",
+    "rawUrl": "/images/Soldadinhos Quebra-Nozes Minimalistas Geométricos.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.27.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756965
+  },
+  "decor-bustos-foco-disciplina": {
+    "projectId": "decor-bustos-foco-disciplina",
+    "title": "Trio de Bustos Geométricos \"FOCO, DISCIPLINA & EXECUÇÃO\"",
+    "fileName": "Trio de Bustos Geométricos -FOCO, DISCIPLINA & EXECUÇÃO-.jpeg",
+    "url": "/images/Trio%20de%20Bustos%20Geom%C3%A9tricos%20-FOCO%2C%20DISCIPLINA%20%26%20EXECU%C3%87%C3%83O-.jpeg",
+    "rawUrl": "/images/Trio de Bustos Geométricos -FOCO, DISCIPLINA & EXECUÇÃO-.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.26.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756968
+  },
+  "art-camaleoes-silk": {
+    "projectId": "art-camaleoes-silk",
+    "title": "Camaleões Articulados Sensoriais com Filamento Silk Furta-Cor",
+    "fileName": "Camaleões Articulados Sensoriais com Filamento Silk Furta-Cor.jpeg",
+    "url": "/images/Camale%C3%B5es%20Articulados%20Sensoriais%20com%20Filamento%20Silk%20Furta-Cor.jpeg",
+    "rawUrl": "/images/Camaleões Articulados Sensoriais com Filamento Silk Furta-Cor.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.43.29__2_.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756969
+  },
+  "art-video-polvo-retratil": {
+    "projectId": "art-video-polvo-retratil",
+    "title": "Demonstração em Vídeo: Polvo Articulado com Tentáculos e Pop-up",
+    "fileName": "Demonstração em Vídeo- Polvo Articulado com Tentáculos e Pop-up.mp4",
+    "url": "/images/Demonstra%C3%A7%C3%A3o%20em%20V%C3%ADdeo-%20Polvo%20Articulado%20com%20Tent%C3%A1culos%20e%20Pop-up.mp4",
+    "rawUrl": "/images/Demonstração em Vídeo- Polvo Articulado com Tentáculos e Pop-up.mp4",
+    "originalSourceFile": "WhatsApp_Video_2026-09-24_at_21.45.23__1_.mp4",
+    "mediaType": "video",
+    "updatedAt": 1790502756973
+  },
+  "art-video-estrela-sensorial": {
+    "projectId": "art-video-estrela-sensorial",
+    "title": "Demonstração em Vídeo: Estrela Sensorial Maleável Print-in-Place",
+    "fileName": "Demonstração em Vídeo- Estrela Sensorial Maleável Print-in-Place.mp4",
+    "url": "/images/Demonstra%C3%A7%C3%A3o%20em%20V%C3%ADdeo-%20Estrela%20Sensorial%20Male%C3%A1vel%20Print-in-Place.mp4",
+    "rawUrl": "/images/Demonstração em Vídeo- Estrela Sensorial Maleável Print-in-Place.mp4",
+    "originalSourceFile": "WhatsApp_Video_2026-09-24_at_21.45.23.mp4",
+    "mediaType": "video",
+    "updatedAt": 1790502756976
+  },
+  "art-video-cubo-infinito": {
+    "projectId": "art-video-cubo-infinito",
+    "title": "Demonstração em Vídeo: Cubo Infinito Fidget Toy em Rotação",
+    "fileName": "Demonstração em Vídeo- Cubo Infinito Fidget Toy em Rotação.mp4",
+    "url": "/images/Demonstra%C3%A7%C3%A3o%20em%20V%C3%ADdeo-%20Cubo%20Infinito%20Fidget%20Toy%20em%20Rota%C3%A7%C3%A3o.mp4",
+    "rawUrl": "/images/Demonstração em Vídeo- Cubo Infinito Fidget Toy em Rotação.mp4",
+    "originalSourceFile": "WhatsApp_Video_2026-09-24_at_21.45.24.mp4",
+    "mediaType": "video",
+    "updatedAt": 1790502756979
   },
   "mascote-urubu-maromba-flamengo": {
-    "fileName": "mascote-urubu-maromba-flamengo.jpg",
-    "url": "/images/mascote-urubu-maromba-flamengo.jpg",
-    "mediaType": "image"
+    "projectId": "mascote-urubu-maromba-flamengo",
+    "title": "Urubu Mascote Maromba de Clube (Duplo Bíceps)",
+    "fileName": "Urubu Mascote Maromba de Clube (Duplo Bíceps).jpeg",
+    "url": "/images/Urubu%20Mascote%20Maromba%20de%20Clube%20(Duplo%20B%C3%ADceps).jpeg",
+    "rawUrl": "/images/Urubu Mascote Maromba de Clube (Duplo Bíceps).jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.25.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756980
   },
-  "peca_recriada": {
-    "fileName": "peca_recriada.jpg",
-    "url": "/images/peca_recriada.jpg",
-    "mediaType": "image"
+  "mascote-bahia-superhomem": {
+    "projectId": "mascote-bahia-superhomem",
+    "title": "Super-Homem Tricolor do Esporte Clube Bahia 1931",
+    "fileName": "Super-Homem Tricolor do Esporte Clube Bahia 1931.jpeg",
+    "url": "/images/Super-Homem%20Tricolor%20do%20Esporte%20Clube%20Bahia%201931.jpeg",
+    "rawUrl": "/images/Super-Homem Tricolor do Esporte Clube Bahia 1931.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.26__1_.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756982
   },
-  "casal_flavio_andreia": {
-    "fileName": "casal_flavio_andreia.jpg",
-    "url": "/images/casal_flavio_andreia.jpg",
-    "mediaType": "image"
+  "fofos-hello-kitty-miniaturas": {
+    "projectId": "fofos-hello-kitty-miniaturas",
+    "title": "Miniaturas Colecionáveis Hello Kitty com Jardineiras Coloridas",
+    "fileName": "Miniaturas Colecionáveis Hello Kitty com Jardineiras Coloridas.jpeg",
+    "url": "/images/Miniaturas%20Colecion%C3%A1veis%20Hello%20Kitty%20com%20Jardineiras%20Coloridas.jpeg",
+    "rawUrl": "/images/Miniaturas Colecionáveis Hello Kitty com Jardineiras Coloridas.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.43.28__2_.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756983
   },
-  "porsche_vermelha_3d": {
-    "fileName": "porsche_vermelha_3d.jpg",
-    "url": "/images/porsche_vermelha_3d.jpg",
-    "mediaType": "image"
+  "fofos-bt21-completa": {
+    "projectId": "fofos-bt21-completa",
+    "title": "Coleção Completa dos Personagens BT21 (8 Figuras)",
+    "fileName": "Coleção Completa dos Personagens BT21 (8 Figuras).jpeg",
+    "url": "/images/Cole%C3%A7%C3%A3o%20Completa%20dos%20Personagens%20BT21%20(8%20Figuras).jpeg",
+    "rawUrl": "/images/Coleção Completa dos Personagens BT21 (8 Figuras).jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.43.28__1_.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756985
   },
-  "trofeu_500k": {
-    "fileName": "trofeu_500k.jpg",
-    "url": "/images/trofeu_500k.jpg",
-    "mediaType": "image"
+  "fofos-chaveiros-sapatilha-bale-laco": {
+    "projectId": "fofos-chaveiros-sapatilha-bale-laco",
+    "title": "Chaveiros Sapatilhas de Balé com Laço de Cetim",
+    "fileName": "Chaveiros Sapatilhas de Balé com Laço de Cetim.mp4",
+    "url": "/images/Chaveiros%20Sapatilhas%20de%20Bal%C3%A9%20com%20La%C3%A7o%20de%20Cetim.mp4",
+    "rawUrl": "/images/Chaveiros Sapatilhas de Balé com Laço de Cetim.mp4",
+    "originalSourceFile": "WhatsApp_Video_2026-09-24_at_21.43.44.mp4",
+    "mediaType": "video",
+    "updatedAt": 1790502756987
   },
-  "dolar_raro_3d": {
-    "fileName": "dolar_raro_3d.jpg",
-    "url": "/images/dolar_raro_3d.jpg",
-    "mediaType": "image"
+  "fofos-chibi-homem-aranha-capitao": {
+    "projectId": "fofos-chibi-homem-aranha-capitao",
+    "title": "Colecionáveis Funko: Homem-Aranha & Capitão América",
+    "fileName": "Colecionáveis Funko- Homem-Aranha & Capitão América.jpeg",
+    "url": "/images/Colecion%C3%A1veis%20Funko-%20Homem-Aranha%20%26%20Capit%C3%A3o%20Am%C3%A9rica.jpeg",
+    "rawUrl": "/images/Colecionáveis Funko- Homem-Aranha & Capitão América.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.15__3_.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756989
   },
-  "moldura_dolar_parede": {
-    "fileName": "moldura_dolar_parede.jpg",
-    "url": "/images/moldura_dolar_parede.jpg",
-    "mediaType": "image"
+  "fofos-animais-amigurumi-croche": {
+    "projectId": "fofos-animais-amigurumi-croche",
+    "title": "Coleção Amigurumi 3D: 8 Animais com Textura de Crochê",
+    "fileName": "Coleção Amigurumi 3D- 8 Animais com Textura de Crochê.jpeg",
+    "url": "/images/Cole%C3%A7%C3%A3o%20Amigurumi%203D-%208%20Animais%20com%20Textura%20de%20Croch%C3%AA.jpeg",
+    "rawUrl": "/images/Coleção Amigurumi 3D- 8 Animais com Textura de Crochê.jpeg",
+    "originalSourceFile": "WhatsApp_Image_2026-09-24_at_21.45.18.jpeg",
+    "mediaType": "image",
+    "updatedAt": 1790502756991
   }
 }

@@ -27,48 +27,47 @@ export function getProjectMediaCandidates(
   const defaultExt = isVideo ? '.mp4' : '.jpeg';
 
   const candidates: string[] = [
-    // 1. Busca pelo nome exato que está na galeria dentro de /images/
-    `/images/${encodeURIComponent(title)}${defaultExt}`,
-    `/images/${title}${defaultExt}`,
+    // 1. URL mapeada diretamente no projeto
+    project.imageUrl,
+
+    // 2. Busca pelo nome seguro/sanitizado (sem caracteres proibidos em sistemas de arquivos)
+    `/images/${encodeURIComponent(safeTitle)}${defaultExt}`,
+    `/images/${safeTitle}${defaultExt}`,
     ...(isVideo
       ? []
       : [
-          `/images/${encodeURIComponent(title)}.jpg`,
-          `/images/${title}.jpg`,
-          `/images/${encodeURIComponent(title)}.png`,
-          `/images/${title}.png`,
+          `/images/${encodeURIComponent(safeTitle)}.jpg`,
+          `/images/${safeTitle}.jpg`,
+          `/images/${encodeURIComponent(safeTitle)}.png`,
+          `/images/${safeTitle}.png`,
         ]),
 
-    // 2. Busca pelo nome com caracteres reservados sanitizados (ex: barras, aspas, dois pontos)
-    ...(safeTitle !== title
+    // 3. Busca pelo nome exato com caracteres originais
+    ...(title !== safeTitle
       ? [
-          `/images/${encodeURIComponent(safeTitle)}${defaultExt}`,
-          `/images/${safeTitle}${defaultExt}`,
+          `/images/${encodeURIComponent(title)}${defaultExt}`,
+          `/images/${title}${defaultExt}`,
           ...(isVideo
             ? []
             : [
-                `/images/${encodeURIComponent(safeTitle)}.jpg`,
-                `/images/${safeTitle}.jpg`,
+                `/images/${encodeURIComponent(title)}.jpg`,
+                `/images/${title}.jpg`,
               ]),
         ]
       : []),
 
-    // 3. Busca pelo ID do projeto em /images/
+    // 4. Arquivo fonte original do WhatsApp
+    project.originalFileName ? `/images/${project.originalFileName}` : '',
+    project.originalFileName ? `/${project.originalFileName}` : '',
+
+    // 5. Busca pelo ID do projeto em /images/
     `/images/${project.id}${defaultExt}`,
     ...(isVideo
       ? []
       : [
           `/images/${project.id}.jpg`,
           `/images/${project.id}.jpeg`,
-          `/images/${project.id}.png`,
         ]),
-
-    // 4. Arquivo original se existir
-    project.originalFileName ? `/images/${project.originalFileName}` : '',
-    project.originalFileName ? `/${project.originalFileName}` : '',
-
-    // 5. imageUrl padrão do projeto
-    project.imageUrl,
 
     // 6. Fallback final garantido
     project.fallbackUrl ||

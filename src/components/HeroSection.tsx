@@ -272,12 +272,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               {/* Image Frame with glowing cyan/neon border */}
               <div className="relative w-full rounded-3xl overflow-hidden bg-[#181b25] border border-[#00f2fe]/40 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_35px_rgba(0,242,254,0.25)] transition-transform duration-500 group-hover:scale-[1.01]">
                 <img
-                  src={customImage || '/equipe_criativa_3k.jpg'}
+                  src={customImage || '/images/Equipe Fundadores 3K 3D - Sosô a criativa, Pepê o explorador, Vinho o inventor.jpg'}
                   alt="Equipe Fundadores 3K 3D - Sosô a criativa, Pepê o explorador, Vinho o inventor"
                   className="w-full h-auto object-cover rounded-3xl block select-none"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.src = '/equipe_criativa_3k.jpg';
+                    if (!target.src.includes('equipe_criativa_3k.jpg')) {
+                      target.src = '/images/equipe_criativa_3k.jpg';
+                    } else if (target.src.includes('/images/')) {
+                      target.src = '/equipe_criativa_3k.jpg';
+                    }
                   }}
                 />
 
