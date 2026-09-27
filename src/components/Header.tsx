@@ -42,14 +42,11 @@ export const Header: React.FC<HeaderProps> = ({
             className="flex items-center gap-2 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00f2fe] group"
           >
             <img
-              src="/images/logo.png"
+              src="/logo.png"
               alt="3K 3D Studio Logo"
               className="h-8 sm:h-9 w-auto object-contain rounded-md shadow-[0_0_12px_rgba(0,242,254,0.2)] group-hover:scale-105 transition-transform"
               onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                if (!target.src.endsWith('/logo.png')) {
-                  target.src = '/logo.png';
-                }
+                (e.target as HTMLImageElement).src = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDcE_1SXqdHYO612f8BQUlrv1hfav4CTL6bW6DRk3B6e7lSkfHpWYHYbdYZF6BehZVJVoi0MENy2YpxEZ5NFZn9vSMqNCpf_8xxH0HKD7rb503q5id3-C5fyQlMKO9wvqTYtU8iU16BW7gHwAe_UgGwyc5hAgGUjKhRue7Q9Ux-s-o3Y2lQ5cfhC8fOg5_7rm9pxareqkfTiK8KRXHzqfZgfezuSqO2f6DI2I2vshzeAgyzUbyKxaFF';
               }}
             />
             <div className="flex items-center gap-1.5">

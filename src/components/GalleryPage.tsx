@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { GALLERY_PROJECTS, CASE_STUDY_DATA } from '../data/projectsData';
 import { ProjectCategory, ProjectItem } from '../types';
-import { saveUserMedia, loadUserMediaMap, deleteUserMedia, syncAllLocalMediaToServer } from '../utils/mediaStorage';
+import { saveUserMedia, loadUserMediaMap, deleteUserMedia } from '../utils/mediaStorage';
+import { ProjectMediaViewer } from './ProjectMediaViewer';
 
 interface GalleryPageProps {
   onOpenInstantQuote: (projectTitle?: string) => void;
@@ -21,7 +22,6 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
   >({});
   const [uploadTargetProjectId, setUploadTargetProjectId] = useState<string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [isSyncing, setIsSyncing] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   // Modo Proprietário: Oculto para visitantes comuns
@@ -29,12 +29,9 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
     try {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('admin') === 'true') return true;
-      if (urlParams.get('admin') === 'false') return false;
-      const stored = localStorage.getItem('3k3d_admin_mode');
-      if (stored !== null) return stored === 'true';
-      return true; // Ativo por padrão no ambiente de edição
+      return localStorage.getItem('3k3d_admin_mode') === 'true';
     } catch {
-      return true;
+      return false;
     }
   });
 
@@ -65,18 +62,10 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Carregar mapa de mídias e sincronizar arquivos locais com public/images/ no disco
   useEffect(() => {
     loadUserMediaMap().then((savedMap) => {
       if (savedMap && Object.keys(savedMap).length > 0) {
         setCustomMediaMap(savedMap);
-        // Sincronizar em segundo plano para gravar os arquivos físicos em public/images/
-        syncAllLocalMediaToServer().then((res) => {
-          if (res.synced > 0) {
-            console.log(`[Auto-Sync] ${res.synced} mídias gravadas em public/images/`);
-            showToast(`✅ ${res.synced} mídias gravadas em public/images/ e prontas para a Vercel!`);
-          }
-        });
       }
     });
   }, []);
@@ -85,26 +74,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
     setToastMessage(message);
     setTimeout(() => {
       setToastMessage(null);
-    }, 4500);
-  };
-
-  const handleManualSync = async () => {
-    setIsSyncing(true);
-    showToast('Sincronizando mídias com a pasta public/images/ no disco...');
-    try {
-      const res = await syncAllLocalMediaToServer();
-      if (res.synced > 0) {
-        showToast(`✅ ${res.synced} de ${res.total} mídias salvas com sucesso em public/images/!`);
-      } else if (res.total === 0) {
-        showToast('Todas as mídias já estão salvas na pasta public/images/!');
-      } else {
-        showToast(`Sincronização concluída (${res.synced}/${res.total} gravadas no disco).`);
-      }
-    } catch {
-      showToast('Erro ao sincronizar mídias.');
-    } finally {
-      setIsSyncing(false);
-    }
+    }, 4000);
   };
 
   const handleTriggerUpload = (projectId: string) => {
@@ -126,11 +96,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
         [uploadTargetProjectId]: saved
       }));
       const proj = GALLERY_PROJECTS.find((p) => p.id === uploadTargetProjectId);
-      if (saved.isSavedToServer) {
-        showToast(`✅ Mídia "${file.name}" salva em public/images/ para a Vercel!`);
-      } else {
-        showToast(`Mídia "${file.name}" anexada em ${proj?.title || 'peça'}!`);
-      }
+      showToast(`Mídia "${file.name}" anexada com sucesso em ${proj?.title || 'peça'}!`);
     } catch {
       showToast('Erro ao anexar arquivo. Tente novamente.');
     }
@@ -233,18 +199,6 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
             <span className="text-[#b9cacb] hidden sm:inline">— Botões de anexar e trocar mídias liberados. Visitantes comuns não veem esses botões.</span>
           </div>
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              disabled={isSyncing}
-              onClick={handleManualSync}
-              className="px-3 py-1 rounded-lg bg-[#00f2fe]/20 hover:bg-[#00f2fe] text-[#00f2fe] hover:text-[#002022] border border-[#00f2fe]/40 font-['JetBrains_Mono'] text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95 disabled:opacity-50"
-              title="Garante que todas as fotos e vídeos anexados sejam gravados na pasta public/images/ para a Vercel"
-            >
-              <span className={`material-symbols-outlined text-[15px] ${isSyncing ? 'animate-spin' : ''}`}>
-                {isSyncing ? 'sync' : 'cloud_upload'}
-              </span>
-              <span>{isSyncing ? 'Sincronizando...' : 'Salvar Mídias no Disco (Vercel)'}</span>
-            </button>
             <span className="text-[#849495] text-[11px] font-['JetBrains_Mono'] hidden md:inline">Atalho: Ctrl + Shift + A</span>
             <button
               type="button"
@@ -408,9 +362,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
               {filteredProjects.map((project) => {
                 const customMedia = customMediaMap[project.id];
-                const mediaUrl = customMedia ? customMedia.url : project.imageUrl;
                 const isVideo = customMedia ? customMedia.mediaType === 'video' : project.mediaType === 'video';
-                const videoUrl = customMedia ? customMedia.url : (project.videoUrl || project.imageUrl);
 
                 return (
                   <article
@@ -419,81 +371,14 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
                       customMedia ? 'border-[#00f2fe]/60 ring-1 ring-[#00f2fe]/30' : 'border-[#272a34] hover:border-[#00f2fe]/40'
                     }`}
                   >
-                    {/* Media Container: Em vídeos, NENHUMA capa de IA bloqueia o preview real */}
-                    {isVideo ? (
-                      <div className="w-full h-80 bg-black flex items-center justify-center relative overflow-hidden">
-                        <video
-                          src={videoUrl}
-                          controls
-                          playsInline
-                          preload="metadata"
-                          className="w-full h-full object-cover"
-                          onClick={(e) => e.stopPropagation()}
-                        />
-
-                        {/* Botão de Anexar / Trocar Mídia diretamente no card de vídeo - APENAS MODO PROPRIETÁRIO */}
-                        {isAdminMode && (
-                          <div className="absolute top-3 right-3 z-30 flex items-center gap-1.5">
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleTriggerUpload(project.id);
-                              }}
-                              className="px-2.5 py-1.5 rounded-lg bg-[#0b0e17]/90 hover:bg-[#00f2fe] text-[#00f2fe] hover:text-[#002022] border border-[#00f2fe]/40 font-['JetBrains_Mono'] text-xs font-semibold flex items-center gap-1 shadow-lg backdrop-blur-md transition-all active:scale-95"
-                              title="Substituir por arquivo de foto ou vídeo do seu computador"
-                            >
-                              <span className="material-symbols-outlined text-[15px]">
-                                {customMedia ? 'sync' : 'attach_file'}
-                              </span>
-                              <span>{customMedia ? 'Trocar Mídia' : 'Anexar Mídia'}</span>
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <div 
-                        className="relative w-full h-80 overflow-hidden bg-[#0b0e17] cursor-pointer"
-                        onClick={() => setSelectedMediaProject(project)}
-                        title="Clique para ver detalhes e foto ampliada"
-                      >
-                        {/* Botão de Anexar / Trocar Mídia - APENAS MODO PROPRIETÁRIO */}
-                        {isAdminMode && (
-                          <div className="absolute top-3 right-3 z-30 flex items-center gap-1.5">
-                            <button
-                              type="button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleTriggerUpload(project.id);
-                              }}
-                              className="px-2.5 py-1.5 rounded-lg bg-[#0b0e17]/90 hover:bg-[#00f2fe] text-[#00f2fe] hover:text-[#002022] border border-[#00f2fe]/40 font-['JetBrains_Mono'] text-xs font-semibold flex items-center gap-1 shadow-lg backdrop-blur-md transition-all active:scale-95"
-                              title="Substituir por arquivo de foto ou vídeo do seu computador"
-                            >
-                              <span className="material-symbols-outlined text-[15px]">
-                                {customMedia ? 'sync' : 'attach_file'}
-                              </span>
-                              <span>{customMedia ? 'Trocar Mídia' : 'Anexar Mídia'}</span>
-                            </button>
-                          </div>
-                        )}
-
-                        <img
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          src={mediaUrl}
-                          alt={project.altText}
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            if (project.originalFileName && !target.src.includes(project.originalFileName)) {
-                              target.src = `/images/${project.originalFileName}`;
-                            } else if (project.fallbackUrl && target.src !== project.fallbackUrl) {
-                              target.src = project.fallbackUrl;
-                            } else {
-                              target.src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80';
-                            }
-                          }}
-                        />
-                      </div>
-                    )}
+                    {/* Media Container com busca pelo nome exato da galeria na pasta public/images/ */}
+                    <ProjectMediaViewer
+                      project={project}
+                      customMedia={customMedia}
+                      isAdminMode={isAdminMode}
+                      onTriggerUpload={handleTriggerUpload}
+                      onClick={() => setSelectedMediaProject(project)}
+                    />
 
                     {/* Card Body */}
                     <div className="p-6 flex flex-col flex-1 justify-between gap-4 bg-[#1c1f29]">
@@ -617,9 +502,6 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
         >
           {(() => {
             const customSelected = customMediaMap[selectedMediaProject.id];
-            const selectedMediaUrl = customSelected ? customSelected.url : selectedMediaProject.imageUrl;
-            const selectedIsVideo = customSelected ? customSelected.mediaType === 'video' : selectedMediaProject.mediaType === 'video';
-            const selectedVideoUrl = customSelected ? customSelected.url : (selectedMediaProject.videoUrl || selectedMediaProject.imageUrl);
 
             return (
               <div 
@@ -647,38 +529,12 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
                   </button>
                 </div>
 
-                {/* Media Body: Zero overlays no vídeo e nas fotos */}
-                {selectedIsVideo ? (
-                  <div className="w-full h-80 sm:h-96 bg-black overflow-hidden flex items-center justify-center">
-                    <video
-                      controls
-                      autoPlay
-                      playsInline
-                      src={selectedVideoUrl}
-                      className="w-full h-full object-contain"
-                    >
-                      Seu navegador não suporta reprodução de vídeo.
-                    </video>
-                  </div>
-                ) : (
-                  <div className="relative w-full h-80 sm:h-96 bg-[#0b0e17] overflow-hidden flex items-center justify-center">
-                    <img
-                      src={selectedMediaUrl}
-                      alt={selectedMediaProject.altText}
-                      className="w-full h-full object-contain"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        if (selectedMediaProject.originalFileName && !target.src.includes(selectedMediaProject.originalFileName)) {
-                          target.src = `/images/${selectedMediaProject.originalFileName}`;
-                        } else if (selectedMediaProject.fallbackUrl && target.src !== selectedMediaProject.fallbackUrl) {
-                          target.src = selectedMediaProject.fallbackUrl;
-                        } else {
-                          target.src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80';
-                        }
-                      }}
-                    />
-                  </div>
-                )}
+                {/* Media Body com busca pelo nome da galeria em public/images/ */}
+                <ProjectMediaViewer
+                  project={selectedMediaProject}
+                  customMedia={customSelected}
+                  isModal={true}
+                />
 
                 {/* Description & Review */}
                 <div className="p-5 flex flex-col gap-4 overflow-y-auto">

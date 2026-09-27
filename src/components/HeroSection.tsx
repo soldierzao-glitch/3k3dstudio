@@ -20,14 +20,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
   const [isAdminMode, setIsAdminMode] = useState<boolean>(() => {
     try {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('admin') === 'true') return true;
-      if (urlParams.get('admin') === 'false') return false;
-      const stored = localStorage.getItem('3k3d_admin_mode');
-      if (stored !== null) return stored === 'true';
-      return true;
+      return localStorage.getItem('3k3d_admin_mode') === 'true';
     } catch {
-      return true;
+      return false;
     }
   });
 
@@ -58,11 +53,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = async (event) => {
+      reader.onload = (event) => {
         const result = event.target?.result as string;
         if (result) {
           setCustomImage(result);
@@ -71,24 +66,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           } catch (err) {
             console.warn('LocalStorage cheio ou restrito', err);
           }
-
-          // Enviar para o servidor salvar diretamente em public/images/equipe_criativa_3k.jpg
-          try {
-            await fetch('/api/upload-media', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                projectId: 'equipe_criativa_3k',
-                fileName: 'equipe_criativa_3k.jpg',
-                fileData: result,
-                mediaType: 'image'
-              })
-            });
-            setToastMessage('✅ Foto dos fundadores salva com sucesso em public/images/ para a Vercel!');
-          } catch {
-            setToastMessage('Foto dos fundadores atualizada localmente!');
-          }
-          setTimeout(() => setToastMessage(null), 3500);
+          setToastMessage('Foto dos fundadores atualizada com sucesso!');
+          setTimeout(() => setToastMessage(null), 3000);
         }
       };
       reader.readAsDataURL(file);
@@ -293,14 +272,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               {/* Image Frame with glowing cyan/neon border */}
               <div className="relative w-full rounded-3xl overflow-hidden bg-[#181b25] border border-[#00f2fe]/40 shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_35px_rgba(0,242,254,0.25)] transition-transform duration-500 group-hover:scale-[1.01]">
                 <img
-                  src={customImage || '/images/equipe_criativa_3k.jpg'}
+                  src={customImage || '/equipe_criativa_3k.jpg'}
                   alt="Equipe Fundadores 3K 3D - Sosô a criativa, Pepê o explorador, Vinho o inventor"
                   className="w-full h-auto object-cover rounded-3xl block select-none"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    if (!target.src.endsWith('/equipe_criativa_3k.jpg')) {
-                      target.src = '/equipe_criativa_3k.jpg';
-                    }
+                    target.src = '/equipe_criativa_3k.jpg';
                   }}
                 />
 

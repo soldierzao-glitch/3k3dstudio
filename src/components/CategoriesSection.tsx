@@ -16,7 +16,7 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({
       title: 'QUEBROU? A GENTE RECRIA.',
       subtitle: 'Pare de procurar uma peça que talvez nem seja mais fabricada.',
       description: 'Perdeu uma tampa? Quebrou uma engrenagem? Sumiu aquele encaixe específico? Podemos recriar a peça sob medida, reproduzindo até componentes difíceis de encontrar.',
-      imageUrl: '/images/peca_recriada.jpg',
+      imageUrl: '/peca_recriada.jpg',
       altText: 'Peça de reposição técnica e engrenagem de eletrodoméstico antigo recriada em 3D',
       benefit: 'Você não precisa jogar fora algo inteiro por causa de uma única peça.'
     },
@@ -25,7 +25,7 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({
       title: 'UM PRESENTE QUE NÃO EXISTE EM NENHUMA LOJA.',
       subtitle: 'Porque os melhores presentes têm uma história por trás.',
       description: 'Transforme uma pessoa, uma memória ou uma paixão em um objeto físico único.',
-      imageUrl: '/images/casal_flavio_andreia.jpg',
+      imageUrl: '/casal_flavio_andreia.jpg',
       altText: 'Escultura personalizada colorida em 3D de casal apaixonado com placa gravada Flávio & Andreia',
       benefit: 'Em vez de escolher algo que qualquer pessoa poderia comprar, você entrega algo que só poderia ser daquela pessoa.'
     },
@@ -34,7 +34,7 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({
       title: 'TRANSFORME SUA HISTÓRIA EM UM OBJETO.',
       subtitle: 'Se é importante para você, por que não poderia existir em 3D?',
       description: 'Dê forma física a momentos decisivos, marcos de superação e vitórias que merecem ser lembrados todos os dias.',
-      imageUrl: '/images/porsche_vermelha_3d.jpg',
+      imageUrl: '/porsche_vermelha_3d.jpg',
       altText: 'Miniatura realista de uma Porsche vermelha fabricada em impressora 3D exposta em estante de escritório',
       benefit: 'Crie algo que represente quem você é, o que ama ou aquilo que conquistou.'
     }
@@ -80,11 +80,7 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({
                   alt={item.altText}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    if (target.src.includes('/images/')) {
-                      target.src = target.src.replace('/images/', '/');
-                    } else {
-                      target.src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80';
-                    }
+                    target.src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80';
                   }}
                 />
               </div>
