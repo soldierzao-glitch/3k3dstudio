@@ -31,11 +31,14 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="lg:col-span-5 flex flex-col gap-4">
             <div className="flex items-center gap-3">
               <img
-                src="/logo.png"
+                src="/images/logo.png"
                 alt="3K 3D Studio Logo"
                 className="h-8 w-auto object-contain rounded-md shadow-sm"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDcE_1SXqdHYO612f8BQUlrv1hfav4CTL6bW6DRk3B6e7lSkfHpWYHYbdYZF6BehZVJVoi0MENy2YpxEZ5NFZn9vSMqNCpf_8xxH0HKD7rb503q5id3-C5fyQlMKO9wvqTYtU8iU16BW7gHwAe_UgGwyc5hAgGUjKhRue7Q9Ux-s-o3Y2lQ5cfhC8fOg5_7rm9pxareqkfTiK8KRXHzqfZgfezuSqO2f6DI2I2vshzeAgyzUbyKxaFF';
+                  const target = e.target as HTMLImageElement;
+                  if (!target.src.endsWith('/logo.png')) {
+                    target.src = '/logo.png';
+                  }
                 }}
               />
               <span className="font-['Space_Grotesk'] text-xl text-[#e0e2ef] font-bold tracking-tight">

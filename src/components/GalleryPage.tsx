@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { GALLERY_PROJECTS, CASE_STUDY_DATA } from '../data/projectsData';
 import { ProjectCategory, ProjectItem } from '../types';
-import { saveUserMedia, loadUserMediaMap, deleteUserMedia } from '../utils/mediaStorage';
+import { saveUserMedia, loadUserMediaMap, deleteUserMedia, syncAllLocalMediaToServer } from '../utils/mediaStorage';
 
 interface GalleryPageProps {
   onOpenInstantQuote: (projectTitle?: string) => void;
@@ -21,6 +21,7 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
   >({});
   const [uploadTargetProjectId, setUploadTargetProjectId] = useState<string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isSyncing, setIsSyncing] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   // Modo Proprietário: Oculto para visitantes comuns
@@ -28,9 +29,12 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
     try {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('admin') === 'true') return true;
-      return localStorage.getItem('3k3d_admin_mode') === 'true';
+      if (urlParams.get('admin') === 'false') return false;
+      const stored = localStorage.getItem('3k3d_admin_mode');
+      if (stored !== null) return stored === 'true';
+      return true; // Ativo por padrão no ambiente de edição
     } catch {
-      return false;
+      return true;
     }
   });
 
@@ -61,10 +65,18 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Carregar mapa de mídias e sincronizar arquivos locais com public/images/ no disco
   useEffect(() => {
     loadUserMediaMap().then((savedMap) => {
       if (savedMap && Object.keys(savedMap).length > 0) {
         setCustomMediaMap(savedMap);
+        // Sincronizar em segundo plano para gravar os arquivos físicos em public/images/
+        syncAllLocalMediaToServer().then((res) => {
+          if (res.synced > 0) {
+            console.log(`[Auto-Sync] ${res.synced} mídias gravadas em public/images/`);
+            showToast(`✅ ${res.synced} mídias gravadas em public/images/ e prontas para a Vercel!`);
+          }
+        });
       }
     });
   }, []);
@@ -73,7 +85,26 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
     setToastMessage(message);
     setTimeout(() => {
       setToastMessage(null);
-    }, 4000);
+    }, 4500);
+  };
+
+  const handleManualSync = async () => {
+    setIsSyncing(true);
+    showToast('Sincronizando mídias com a pasta public/images/ no disco...');
+    try {
+      const res = await syncAllLocalMediaToServer();
+      if (res.synced > 0) {
+        showToast(`✅ ${res.synced} de ${res.total} mídias salvas com sucesso em public/images/!`);
+      } else if (res.total === 0) {
+        showToast('Todas as mídias já estão salvas na pasta public/images/!');
+      } else {
+        showToast(`Sincronização concluída (${res.synced}/${res.total} gravadas no disco).`);
+      }
+    } catch {
+      showToast('Erro ao sincronizar mídias.');
+    } finally {
+      setIsSyncing(false);
+    }
   };
 
   const handleTriggerUpload = (projectId: string) => {
@@ -95,7 +126,11 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
         [uploadTargetProjectId]: saved
       }));
       const proj = GALLERY_PROJECTS.find((p) => p.id === uploadTargetProjectId);
-      showToast(`Mídia "${file.name}" anexada com sucesso em ${proj?.title || 'peça'}!`);
+      if (saved.isSavedToServer) {
+        showToast(`✅ Mídia "${file.name}" salva em public/images/ para a Vercel!`);
+      } else {
+        showToast(`Mídia "${file.name}" anexada em ${proj?.title || 'peça'}!`);
+      }
     } catch {
       showToast('Erro ao anexar arquivo. Tente novamente.');
     }
@@ -198,6 +233,18 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
             <span className="text-[#b9cacb] hidden sm:inline">— Botões de anexar e trocar mídias liberados. Visitantes comuns não veem esses botões.</span>
           </div>
           <div className="flex items-center gap-3">
+            <button
+              type="button"
+              disabled={isSyncing}
+              onClick={handleManualSync}
+              className="px-3 py-1 rounded-lg bg-[#00f2fe]/20 hover:bg-[#00f2fe] text-[#00f2fe] hover:text-[#002022] border border-[#00f2fe]/40 font-['JetBrains_Mono'] text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm active:scale-95 disabled:opacity-50"
+              title="Garante que todas as fotos e vídeos anexados sejam gravados na pasta public/images/ para a Vercel"
+            >
+              <span className={`material-symbols-outlined text-[15px] ${isSyncing ? 'animate-spin' : ''}`}>
+                {isSyncing ? 'sync' : 'cloud_upload'}
+              </span>
+              <span>{isSyncing ? 'Sincronizando...' : 'Salvar Mídias no Disco (Vercel)'}</span>
+            </button>
             <span className="text-[#849495] text-[11px] font-['JetBrains_Mono'] hidden md:inline">Atalho: Ctrl + Shift + A</span>
             <button
               type="button"
@@ -436,7 +483,13 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
                           alt={project.altText}
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
-                            target.src = project.fallbackUrl || 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80';
+                            if (project.originalFileName && !target.src.includes(project.originalFileName)) {
+                              target.src = `/images/${project.originalFileName}`;
+                            } else if (project.fallbackUrl && target.src !== project.fallbackUrl) {
+                              target.src = project.fallbackUrl;
+                            } else {
+                              target.src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80';
+                            }
                           }}
                         />
                       </div>
@@ -615,7 +668,13 @@ export const GalleryPage: React.FC<GalleryPageProps> = ({
                       className="w-full h-full object-contain"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = selectedMediaProject.fallbackUrl || 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80';
+                        if (selectedMediaProject.originalFileName && !target.src.includes(selectedMediaProject.originalFileName)) {
+                          target.src = `/images/${selectedMediaProject.originalFileName}`;
+                        } else if (selectedMediaProject.fallbackUrl && target.src !== selectedMediaProject.fallbackUrl) {
+                          target.src = selectedMediaProject.fallbackUrl;
+                        } else {
+                          target.src = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80';
+                        }
                       }}
                     />
                   </div>

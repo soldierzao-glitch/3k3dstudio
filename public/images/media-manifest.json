@@ -1,0 +1,47 @@
+{
+  "equipe_criativa_3k": {
+    "fileName": "equipe_criativa_3k.jpg",
+    "url": "/images/equipe_criativa_3k.jpg",
+    "mediaType": "image"
+  },
+  "sacro-cruz-painosso": {
+    "fileName": "sacro-cruz-painosso.jpg",
+    "url": "/images/sacro-cruz-painosso.jpg",
+    "mediaType": "image"
+  },
+  "mascote-urubu-maromba-flamengo": {
+    "fileName": "mascote-urubu-maromba-flamengo.jpg",
+    "url": "/images/mascote-urubu-maromba-flamengo.jpg",
+    "mediaType": "image"
+  },
+  "peca_recriada": {
+    "fileName": "peca_recriada.jpg",
+    "url": "/images/peca_recriada.jpg",
+    "mediaType": "image"
+  },
+  "casal_flavio_andreia": {
+    "fileName": "casal_flavio_andreia.jpg",
+    "url": "/images/casal_flavio_andreia.jpg",
+    "mediaType": "image"
+  },
+  "porsche_vermelha_3d": {
+    "fileName": "porsche_vermelha_3d.jpg",
+    "url": "/images/porsche_vermelha_3d.jpg",
+    "mediaType": "image"
+  },
+  "trofeu_500k": {
+    "fileName": "trofeu_500k.jpg",
+    "url": "/images/trofeu_500k.jpg",
+    "mediaType": "image"
+  },
+  "dolar_raro_3d": {
+    "fileName": "dolar_raro_3d.jpg",
+    "url": "/images/dolar_raro_3d.jpg",
+    "mediaType": "image"
+  },
+  "moldura_dolar_parede": {
+    "fileName": "moldura_dolar_parede.jpg",
+    "url": "/images/moldura_dolar_parede.jpg",
+    "mediaType": "image"
+  }
+}
